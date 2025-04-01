@@ -84,6 +84,7 @@ convert /home/dexterleslie/temp/1.docx -> /home/dexterleslie/temp/1.pdf using fi
 - --convert-to - 将文件转换为选定的过滤器，在我们的例子中为“pdf”。
 - --outdir - 表示转换后文件的目标文件夹。
 - 1.docx - 要转换的文件的路径。
+- 下载文件 [1.doc](https://gitee.com/dexterleslie/demonstration/tree/master/demo-word-to-pdf/1.doc) 和 [1.docx](https://gitee.com/dexterleslie/demonstration/tree/master/demo-word-to-pdf/1.docx) 进行测试
 
 上面 libreoffice 命令不支持并发执行，否则报告错误。参考 [链接](https://ask.libreoffice.org/t/how-can-i-run-multiple-instances-of-soffice-under-linux/22258) 设置 libreoffice 支持并发转换
 

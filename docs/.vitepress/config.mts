@@ -75,6 +75,7 @@ export default defineConfig({
       }, {
         text: '编程语言', items: [
           { text: 'Go', link: '/golang/README.md' },
+          { text: 'Python', link: '/python/README.md' },
         ]
       }, {
         text: '云提供商', items: [
@@ -437,6 +438,16 @@ export default defineConfig({
             { text: 'Tomcat', link: '/java/tomcat.md' },
             { text: '异常', link: '/java/异常.md' },
             { text: '生产环境问题排查', link: '/java/生产环境问题排查.md' },
+          ]
+        }
+      ],
+      '/python/': [
+        {
+          text: 'Python',
+          items: [
+            { text: '基础', link: '/python/README.md' },
+            { text: 'Xpath', link: '/python/xpath使用.md' },
+            { text: 'CentOS6 升级 Python2.6 到 Python2.7', link: '/python/centOS6升级python2.6到python2.7.md' },
           ]
         }
       ],

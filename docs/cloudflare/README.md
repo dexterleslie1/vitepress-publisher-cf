@@ -92,14 +92,40 @@ Cloudflare Pages是一个功能强大、性能出色、安全可靠的静态网�
 
 ### 发布 VitePress
 
-提示：
-
-- 每次提交变更到主干中都会自动触发 Pages 自动构建和部署，不需要人工干预。
-- 通过 VitePress 发布 GitHub 项目，需要完整地克隆仓库导致 LFS 流量超出免费额度，所以使用手动编译和手动上传的方式发布 VitePress 文档。
 
 
+#### 连接 GitHub 方式
 
-### 通过手动方式发布基于 VitePress 的文档
+>注意：推荐使用此方式发布。
+>
+>通过此方式发布 GitHub 项目，需要完整地克隆仓库有可能会导致 LFS 流量超出免费额度，所以需要注意发布 GitHub 仓库的大小。
+
+步骤如下：
+
+1. 访问 `https://dash.cloudflare.com` 登录 Cloudflare 控制台
+2. 导航到 Pages 产品后，点击 `Create` 按钮以创建 Application
+3. 点击切换到 Pages 标签页，点击 `Connect to Git` 按钮跳转到 GitHub/GitLab 信息配置页面
+4. 点击 `Add account` 按钮添加 GitHub 帐号，填写信息如下：
+   - GitHub account 选择 `刚刚授权的 GitHub 帐号`
+   - Select a repository 选择 `刚刚授权的 GitHub 仓库`
+5. 点击 `Begin setup` 按钮跳转到构建和部署设置界面，填写信息如下：
+   - Project name 为不需要填写使用 GitHub 仓库名称即可
+   - Production branch 为 GitHub 仓库需要构建和部署的分支（Cloudflare 会自动选择主干分支）
+   - Framework preset 选择 `VitePress`
+   - Build command 使用默认值（Cloudflare 会自动生成）。如果 VitePress 项目配置使用 docs 目录则填写 `npm run docs:build` 命令
+   - Build output directory 使用默认值（Cloudflare 会自动生成）。如果 VitePress 项目配置使用 docs 目录则填写 `docs/.vitepress/dist`
+   - Root directory 不填写。如果 VitePress 项目在 GitHub 仓库中不在根目录中，则需要指定 VitePress 项目在 GitHub 仓库中所在的路径，例如：publisher/vitepress
+6. 点击 `Save and Deploy` 按钮会自动构建和部署 VitePress 项目
+7. 等自动构建和部署完毕后，访问 `xxx.pages.dev` 即可
+8. 禁用自动发布：修改 Application 的设置 Branch control，取消勾选 Enable automatic production branch deployments。
+
+
+
+#### 手动上传方式
+
+>注意：不知道什么原因通过此方式发布 demonstration 项目的 VitePress css 文件会无法下载，所以不使用此方式发布 VitePress 文档。
+>
+>本地编译后，手动上传 html、js、css 到 Cloudflare。
 
 步骤如下：
 
@@ -114,26 +140,6 @@ Cloudflare Pages是一个功能强大、性能出色、安全可靠的静态网�
 2. 登录 CloudFlare 控制台创建 Pages 并使用 `Create using direct upload` > `Upload assets` 功能直接上传 docs/.vitepress/dist 目录
 
 3. docs/.vitepress/dist 目录上传完毕后点击 `Deploy` 按钮部署文档。
-
-
-
-步骤如下：
-
-1. 访问 `https://dash.cloudflare.com` 登录 Cloudflare 控制台
-2. 导航到 Pages 产品后，点击 `Create` 按钮以创建 Application
-3. 点击切换到 Pages 标签页，点击 `Connect to Git` 按钮跳转到 GitHub/GitLab 信息配置页面
-4. 点击 `Add account` 按钮添加 GitHub 帐号，填写信息如下：
-   - GitHub account 选择 `刚刚授权的 GitHub 帐号`
-   - Select a repository 选择 `刚刚授权的 GitHub 仓库`
-5. 点击 `Begin setup` 按钮跳转到构建和部署设置界面，填写信息如下：
-   - Project name 为不需要填写使用 GitHub 仓库名称即可
-   - Production branch 为 GitHub 仓库需要构建和部署的分支（Cloudflare 会自动选择主干分支）
-   - Framework preset 选择 `VitePress`
-   - Build command 使用默认值（Cloudflare 会自动生成）。如果 VitePress 项目配置使用 docs 目录则填写 `npx vitepress build docs` 命令
-   - Build output directory 使用默认值（Cloudflare 会自动生成）。如果 VitePress 项目配置使用 docs 目录则填写 `docs/.vitepress/dist`
-   - Root directory 不填写。如果 VitePress 项目在 GitHub 仓库中不在根目录中，则需要指定 VitePress 项目在 GitHub 仓库中所在的路径，例如：publisher/vitepress
-6. 点击 `Save and Deploy` 按钮会自动构建和部署 VitePress 项目
-7. 等自动构建和部署完毕后，访问 `xxx.pages.dev` 即可
 
 
 

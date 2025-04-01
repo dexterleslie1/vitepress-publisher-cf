@@ -39,6 +39,7 @@ source_dir_to_target_dir_map["../../demo-mysql-n-mariadb"]="mysql-n-mariadb"
 source_dir_to_target_dir_map["../../demo-word-to-pdf"]="word-to-pdf"
 source_dir_to_target_dir_map["../../demo-idea"]="idea"
 source_dir_to_target_dir_map["../../demo-http"]="http"
+source_dir_to_target_dir_map["../../python"]="python"
 
 for key in ${!source_dir_to_target_dir_map[@]}; do
     # 删除符号链接目录

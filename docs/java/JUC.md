@@ -3836,6 +3836,196 @@ try{
 
 
 
+#### 用法 - CompletableFuture 异常处理
+
+```java
+// region CompletableFuture 异常处理
+{
+
+    ExecutorService executor = Executors.newCachedThreadPool();
+
+    // region 测试CompletableFuture#get()
+
+    // 测试 IllegalArgumentException
+    CompletableFuture completableFuture5 = CompletableFuture.supplyAsync(() -> {
+        throw new IllegalArgumentException("IllegalArgumentException");
+    }, executor);
+    try {
+        try {
+            completableFuture5.get();
+        } catch (ExecutionException ex) {
+            // CompletableFuture#get() 执行异常时只抛出 ExecutionException，里面包装了业务异常，通过 getCause() 获取
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                // 如果是 RuntimeException
+                if (cause.getCause() == null) {
+                    // RuntimeException 没有 cause，则直接抛出
+                    throw (RuntimeException) cause;
+                } else {
+                    // 否则抛出 RuntimeException 中的 cause
+                    cause = cause.getCause();
+                    throw cause;
+                }
+            }
+        }
+        Assert.fail();
+    } catch (Throwable ex) {
+        Assert.assertTrue(ex instanceof IllegalArgumentException);
+    }
+
+    // 测试 BusinessException
+    completableFuture5 = CompletableFuture.supplyAsync(() -> {
+        throw new RuntimeException(new BusinessException("H"));
+    }, executor);
+    try {
+        try {
+            completableFuture5.get();
+        } catch (ExecutionException ex) {
+            // CompletableFuture#get() 执行异常时只抛出 ExecutionException，里面包装了业务异常，通过 getCause() 获取
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                // 如果是 RuntimeException
+                if (cause.getCause() == null) {
+                    // RuntimeException 没有 cause，则直接抛出
+                    throw (RuntimeException) cause;
+                } else {
+                    // 否则抛出 RuntimeException 中的 cause
+                    cause = cause.getCause();
+                    throw cause;
+                }
+            }
+        }
+        Assert.fail();
+    } catch (Throwable ex) {
+        Assert.assertTrue(ex instanceof BusinessException);
+        Assert.assertEquals("H", ((BusinessException) ex).getErrorMessage());
+    }
+
+    // 测试 RuntimeException
+    completableFuture5 = CompletableFuture.supplyAsync(() -> {
+        throw new RuntimeException("A");
+    }, executor);
+    try {
+        try {
+            completableFuture5.get();
+        } catch (ExecutionException ex) {
+            // CompletableFuture#get() 执行异常时只抛出 ExecutionException，里面包装了业务异常，通过 getCause() 获取
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                // 如果是 RuntimeException
+                if (cause.getCause() == null) {
+                    // RuntimeException 没有 cause，则直接抛出
+                    throw (RuntimeException) cause;
+                } else {
+                    // 否则抛出 RuntimeException 中的 cause
+                    cause = cause.getCause();
+                    throw cause;
+                }
+            }
+        }
+        Assert.fail();
+    } catch (Throwable ex) {
+        Assert.assertTrue(ex instanceof RuntimeException);
+        Assert.assertEquals("A", ((RuntimeException) ex).getMessage());
+    }
+
+    // endregion
+
+    // region 测试 CompletableFuture#join()
+
+    // 测试 IllegalArgumentException
+    completableFuture5 = CompletableFuture.supplyAsync(() -> {
+        throw new IllegalArgumentException("IllegalArgumentException");
+    }, executor);
+    try {
+        try {
+            completableFuture5.join();
+        } catch (CompletionException ex) {
+            // CompletableFuture#join() 执行异常时只抛出 CompletionException，里面包装了业务异常，通过 getCause() 获取
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                // 如果是 RuntimeException
+                if (cause.getCause() == null) {
+                    // RuntimeException 没有 cause，则直接抛出
+                    throw (RuntimeException) cause;
+                } else {
+                    // 否则抛出 RuntimeException 中的 cause
+                    cause = cause.getCause();
+                    throw cause;
+                }
+            }
+        }
+        Assert.fail();
+    } catch (Throwable ex) {
+        Assert.assertTrue(ex instanceof IllegalArgumentException);
+    }
+
+    // 测试 BusinessException
+    completableFuture5 = CompletableFuture.supplyAsync(() -> {
+        throw new RuntimeException(new BusinessException("H"));
+    }, executor);
+    try {
+        try {
+            completableFuture5.join();
+        } catch (CompletionException ex) {
+            // CompletableFuture#join() 执行异常时只抛出 CompletionException，里面包装了业务异常，通过 getCause() 获取
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                // 如果是 RuntimeException
+                if (cause.getCause() == null) {
+                    // RuntimeException 没有 cause，则直接抛出
+                    throw (RuntimeException) cause;
+                } else {
+                    // 否则抛出 RuntimeException 中的 cause
+                    cause = cause.getCause();
+                    throw cause;
+                }
+            }
+        }
+        Assert.fail();
+    } catch (Throwable ex) {
+        Assert.assertTrue(ex instanceof BusinessException);
+        Assert.assertEquals("H", ((BusinessException) ex).getErrorMessage());
+    }
+
+    // 测试 RuntimeException
+    completableFuture5 = CompletableFuture.supplyAsync(() -> {
+        throw new RuntimeException("A");
+    }, executor);
+    try {
+        try {
+            completableFuture5.join();
+        } catch (CompletionException ex) {
+            // CompletableFuture#join() 执行异常时只抛出 CompletionException，里面包装了业务异常，通过 getCause() 获取
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                // 如果是 RuntimeException
+                if (cause.getCause() == null) {
+                    // RuntimeException 没有 cause，则直接抛出
+                    throw (RuntimeException) cause;
+                } else {
+                    // 否则抛出 RuntimeException 中的 cause
+                    cause = cause.getCause();
+                    throw cause;
+                }
+            }
+        }
+        Assert.fail();
+    } catch (Throwable ex) {
+        Assert.assertTrue(ex instanceof RuntimeException);
+        Assert.assertEquals("A", ((RuntimeException) ex).getMessage());
+    }
+
+    // endregion
+
+    executor.shutdown();
+}
+
+// endregion
+```
+
+
+
 ## CountDownLatch
 
 Java `CountDownLatch` 是一个同步工具类，可以用来等待多个线程完成某个操作。它就像一个计数器，初始值设置为线程的数量。每个线程完成操作后，就将计数器减一。当计数器减到零时，`CountDownLatch` 的 `await()` 方法解除阻塞，等待的线程继续执行。
