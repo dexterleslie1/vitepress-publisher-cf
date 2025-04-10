@@ -914,6 +914,120 @@ methods: {
 
 
 
+### 拖拽
+
+>详细用法请参考本站 [示例](https://gitee.com/dexterleslie/demonstration/tree/master/front-end/demo-vue/demo-vue2-event-drag-and-drop)
+
+```vue
+<template>
+  <div id="app">
+    <!-- <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+      <div class="drop-zone" @dragenter.prevent="isDragging = true" @dragover.prevent
+        @dragleave.prevent="isDragging = false" @drop.prevent="handleDrop" :class="{ 'dragging': isDragging }"
+        @click="$refs.fileInput.click()">
+        拖拽文件到这里或者点击选择文件
+        <input type="file" name="files" ref="fileInput" @change="handleChangeFile" multiple style="display:none;" />
+      </div>
+
+      <div style="margin-top:20px;">
+        <div>
+          已经选择文件列表：
+        </div>
+        <div v-if="fileList.length == 0" style="color:red;font-size:16px;padding-top:10px;">无数据</div>
+        <div style="display:flex;flex-direction:column;align-items:start;padding-left:10px;padding-top:10px;">
+          <div v-for="item in this.fileList" style="padding:2px 0px;">
+            <span>•</span><span style="margin-left:10px;font-weight:bold;">{{ item.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    // HelloWorld
+  },
+  data() {
+    return {
+      fileList: [],
+      isDragging: false,
+    }
+  },
+  mounted() {
+    // 禁止文件拖拽自动下载或者打开的默认行为，需要 dragover 和 drop 同时 prevent 才生效
+    document.addEventListener('dragover', this.handleDragOverPrevent);
+    document.addEventListener('drop', this.handleDropPrevent);
+  },
+  beforeDestroy() {
+    document.removeEventListener('dragover', this.handleDragOverPrevent);
+    document.removeEventListener('drop', this.handleDropPrevent);
+  },
+  methods: {
+    handleDrop(event) {
+      this.isDragging = false
+      let files = event.dataTransfer.files
+      if (files && files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          this.fileList.push(files[i])
+        }
+      }
+    },
+    handleChangeFile(event) {
+      this.isDragging = false
+      let files = event.target.files
+      if (files && files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          this.fileList.push(files[i])
+        }
+      }
+      this.$refs.fileInput.value = null
+    },
+    handleDragOverPrevent(event) {
+      event.preventDefault();
+    },
+    handleDropPrevent(event) {
+      event.preventDefault();
+    }
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+.drop-zone {
+  border-width: 2px;
+  border-style: dashed;
+  border-color: #ccc;
+  border-radius: 10px;
+  padding: 50px 0px;
+  width: 80%;
+}
+
+.drop-zone.dragging {
+  border-color: black;
+  background-color: rgb(228, 228, 228);
+}
+</style>
+
+```
+
+
+
 ## input file 控件自定义订制
 
 >详细用法请参考本站 [示例](https://gitee.com/dexterleslie/demonstration/tree/master/front-end/demo-vue/demo-vue2-input-file-customization)
@@ -1106,3 +1220,562 @@ module.exports = defineConfig({
 })
 ```
 
+
+
+## 选项式和组合式 API
+
+在 Vue.js 中，组合式 API（Composition API）是 **Vue 3** 引入的一套新的逻辑复用机制，它对应的传统 API 被称为 **选项式 API（Options API）**。两者是 Vue 中组织代码逻辑的两种不同范式：
+
+### 1. **组合式 API（Composition API）**
+
+- **核心特性**：通过 `setup()` 函数、`ref`、`reactive`、`computed`、`watch` 等函数式工具组织代码。
+- 优势：
+  - 逻辑复用更灵活（通过自定义 Hook，如 `useMouse`、`useFetch`）。
+  - 更好的类型推断（配合 TypeScript）。
+  - 代码组织更直观（按功能拆分而非选项分类）。
+- **适用场景**：复杂组件、需要逻辑复用的场景，或 Vue 3 项目。
+
+### 2. **选项式 API（Options API）**
+
+- **核心特性**：通过 `data`、`methods`、`computed`、`watch` 等选项组织代码。
+- 特点：
+  - 代码按功能（如数据、方法、生命周期）分类，适合简单场景。
+  - 逻辑复用依赖 Mixins（可能引发命名冲突）。
+- **适用场景**：简单组件、Vue 2 项目，或需要快速开发时。
+
+### 对比示例
+
+- **选项式 API**：
+
+  ```javascript
+  export default {
+    data() {
+      return { count: 0 };
+    },
+    methods: {
+      increment() { this.count++; }
+    },
+    watch: {
+      count(newVal) { console.log(newVal); }
+    }
+  };
+  ```
+
+- **组合式 API**：
+
+  ```javascript
+  import { ref, watch } from 'vue';
+  export default {
+    setup() {
+      const count = ref(0);
+      const increment = () => { count.value++; };
+      watch(count, (newVal) => console.log(newVal));
+      return { count, increment };
+    }
+  };
+  ```
+
+### 总结
+
+- **组合式 API** 是 Vue 3 推荐的新范式，尤其适合中大型项目。
+- **选项式 API** 仍被支持，适合简单组件或 Vue 2 迁移项目。
+- 两者可共存于同一项目中，但推荐新项目优先使用组合式 API。
+
+
+
+## 创建并发布自定义组件
+
+### 基于 Vue2
+
+#### 使用 Vue CLI
+
+>详细用法请参考本站 [示例](https://gitee.com/dexterleslie/demonstration/tree/main/front-end/demo-vue/demo-vue2-cli-my-component-lib)
+
+使用 Vue CLI 创建项目
+
+```bash
+$ vue demo-vue2-cli-my-component-lib
+Vue CLI v5.0.8
+? Please pick a preset: Manually select features
+? Check the features needed for your project: Babel
+? Choose a version of Vue.js that you want to start the project with 2.x
+? Where do you prefer placing config for Babel, ESLint, etc.? In package.json
+? Save this as a preset for future projects? No
+```
+
+配置 vue.config.js 内容如下：
+
+```javascript
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  // configureWebpack 用于直接对内部的 Webpack 配置对象进行扩展或覆盖。
+  // 在这里，通过 configureWebpack 添加了 output 和 externals 配置，主要目的是修改打包输出的格式和指定外部依赖。
+  configureWebpack: {
+    // 这部分配置主要用于打包一个库（Library），指定打包后的文件如何暴露给外部使用。
+    // 如果你的 Vue 项目是为了开发一个组件库（而不仅仅是一个独立应用），这些配置非常关键，因为它们决定了你的组件库如何被其他项目引入和使用。
+    output: {
+      // 指定库的导出方式是 default，即暴露组件的默认导出。
+      // 如果你的组件库默认导出的是一个 Vue 组件（如 export default {}），需要设置为 default。
+      libraryExport: 'default',
+      // 指定库的打包格式为 UMD（Universal Module Definition）。
+      // UMD 是一种通用模块定义规范，可兼容多种加载方式（如 CommonJS、AMD 和全局变量）。
+      // 这种格式适合发布到 npm，同时支持在浏览器环境中通过 <script> 标签直接引入。
+      libraryTarget: 'umd',
+      // 指定库的全局变量名称为 MyComponentLib。
+      // 如果库通过 <script> 的方式引入，MyComponent 会作为全局变量暴露。
+      library: 'MyComponentLib'
+    },
+    // externals 配置用于将某些依赖标记为外部依赖，从而避免在打包时将它们一起捆绑进来。
+    // vue: 'vue' 表示 Vue 本身不会被打包到生成的库中，而是假定在运行时由宿主环境（即最终使用组件库的项目）提供 Vue。
+    // 如果你的组件库依赖 Vue 或其他第三方库，并且希望宿主项目来提供这些依赖，就可以使用 externals。
+    externals: process.env.NODE_ENV === 'production' ? { vue: 'vue' } : {}
+  },
+  // 该配置用于控制 Vue CLI 如何处理项目中的 CSS。
+  // extract: false 表示 不将 CSS 提取到独立的文件中，而是将 CSS 直接注入到 JavaScript 文件中。
+  // 默认情况下，Vue CLI 在生产环境中会将 CSS 提取成单独的文件（例如 .css 文件），以便优化浏览器的加载性能。
+  // 设置 extract: false 后，CSS 会以 <style> 标签的形式嵌入到 HTML 中，或者以内联的方式注入到 JavaScript 打包结果中。
+  css: { extract: false }
+})
+
+```
+
+创建入口文件 src/index.js 内容如下：
+
+```javascript
+// 在自定义 Vue 组件库的项目中通常被用作插件的入口文件，主要作用是方便开发者将该组件库作为一个插件引入到 Vue 项目中，同时按需导出单个组件，供开发者选择使用。
+// 这部分代码导入了两个 Vue 组件 MyComponent1 和 MyComponent2，它们位于 src/components 目录下。
+import MyComponent1 from './components/MyComponent1.vue';
+import MyComponent2 from './components/MyComponent2.vue';
+
+// install 方法是 Vue 插件的约定方法，Vue.use() 会调用这个方法。
+// 在这里，install 方法接收 Vue 构造函数作为参数，并通过 Vue.component 全局注册两个组件 MyComponent1 和 MyComponent2。
+// 这样，当插件被安装后，这两个组件就可以在任何地方的模板中直接使用，比如 <MyComponent1 /> 和 <MyComponent2 />。
+const install = function (Vue) {
+    // 注册组件到 Vue 的名称，在调用时直接使用该名称作为标签
+    Vue.component('MyComponent1', MyComponent1)
+    Vue.component('MyComponent2', MyComponent2)
+};
+
+// 自动注册插件（针对 Vue 2.x 的浏览器环境）
+// 如果该库是通过 <script> 标签直接引入的（通常用于浏览器环境），window.Vue 会存在，表示全局的 Vue 构造函数。
+// 代码会自动检测到全局的 Vue 对象，并调用 install(window.Vue)，将组件自动注册到全局。
+// 这使得开发者无需手动调用 Vue.use()，即可直接使用组件。
+if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+}
+
+// 导出组件和插件方法
+// install 方法：使得该库可以作为 Vue 插件使用，通过 Vue.use() 来安装。
+// MyComponent1 和 MyComponent2：单独导出组件，支持按需引入。
+// 
+// 开发者可以按需引入某个组件，而不是必须引入整个插件。例如：
+//      import { MyComponent1 } from 'my-component-library';
+//      Vue.component('MyComponent1', MyComponent1);
+//
+export default {
+    install,
+    MyComponent1,
+    MyComponent2,
+};
+
+```
+
+修改 package.json
+
+```json
+{
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name my-component-lib src/index.js"
+  },
+  "main": "dist/my-component-lib.umd.min.js"
+}
+
+```
+
+- `"build": "vue-cli-service build --target lib --name my-component-lib src/index.js"` 解析：
+  - 这段配置主要用于设置自定义 Vue 组件库的打包和入口文件，以便于该组件库可以发布为一个通用的 JavaScript 库，供其他项目使用。
+  - **`--target lib`**：指定打包的目标为库（library），而不是应用程序。这会生成一个适合作为第三方库分发的文件，而不是一个可直接运行的 HTML 文件。
+  - **`--name my-component-lib`**：指定生成的库的名称为 `my-component-lib`。这会影响生成文件的全局变量名称（如果使用 UMD 格式）。例如：会在 dist 目录下生成以 `my-component-lib` 开头文件 my-component-lib.common.js、my-component-lib.umd.js、my-component-lib.umd.min.js。
+  - **`src/index.js`**：指定打包的入口文件为 `src/index.js`。这个文件通常是组件库的入口，负责导出所有组件和插件方法。
+- `"main": "dist/my-component-lib.umd.min.js"` 解析：
+  - `main` 字段是 Node.js 的约定字段，用于指定模块的入口文件。
+  - 当该组件库被发布到 npm 并被其他项目安装时，Node.js 会根据这个字段找到库的入口文件。
+  - 在这里，`dist/my-component-lib.umd.min.js` 是打包后生成的库的最小化文件 UMD 格式（是一种通用的模块定义格式，支持在 Node.js、AMD（Asynchronous Module Definition）和浏览器环境中使用。这使得组件库可以在各种环境中使用，无论是通过 `<script>` 标签引入，还是通过模块化工具（如 Webpack、Rollup）引入。）。
+
+编译组件
+
+```bash
+npm run build
+```
+
+自身项目调试组件
+
+- 启用项目
+
+  ```bash
+  npm run serve
+  ```
+
+- 访问 `http://localhost:8080/` 即可。
+
+
+
+使用测试项目借助 npm link 引用组件
+
+>npm link 用法请参考本站 <a href="/nodejs/npm命令.html#npm-link" target="_blank">链接</a>
+
+- 链接自定义组件库到全局 node_modules 中
+
+  ```bash
+  cd demo-vue2-cli-my-component-lib
+  
+  # 会使用自定义组件库目录作为 import from 'demo-vue2-cli-my-component-lib'
+  npm link
+  ```
+
+- 引用自定义组件库
+
+  创建 Vue2 项目：参考本站 <a href="/vue/脚手架创建项目.html#创建-vue2" target="_blank">链接</a>
+
+  添加自定义组件库依赖
+
+  ```bash
+  npm link demo-vue2-cli-my-component-lib
+  ```
+
+  在 src/main.js 中注册组件库
+
+  ```javascript
+  import Vue from 'vue'
+  import App from './App.vue'
+  // 导入组件库
+  import MyComponentPlugin from 'demo-vue2-cli-my-component-lib'
+  // 单独引用组件
+  import { MyComponent1 } from 'demo-vue2-cli-my-component-lib'
+  
+  Vue.config.productionTip = false
+  // 注册组件库到 Vue 中，Vue.use 函数会自动调用组件库中的 install 函数
+  Vue.use(MyComponentPlugin)
+  // 通过 <my-component-1></my-component-1> 单独引用组件库
+  Vue.component('my-component-1', MyComponent1)
+  
+  new Vue({
+    render: h => h(App),
+  }).$mount('#app')
+  ```
+
+  在 src/App.vue 中引用组件库中的组件
+
+  ```vue
+  <template>
+    <div id="app">
+      <MyComponent1></MyComponent1>
+      <MyComponent2></MyComponent2>
+      <my-component-1></my-component-1>
+    </div>
+  </template>
+  
+  <script>
+  
+  export default {
+    name: 'App',
+  }
+  </script>
+  
+  <style>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
+  </style>
+  
+  ```
+
+参考 <a href="/nodejs/README.html#发布组件到-npm-registry" target="_blank">链接</a> 发布到 npm registry
+
+
+
+#### 使用 Vite
+
+>详细用法请参考本站 [示例](https://gitee.com/dexterleslie/demonstration/tree/main/front-end/demo-vue/demo-vue2-vite-my-component-lib)
+
+参考本站 <a href="/vite/README.html#创建-vite-vue2-项目" target="_blank">链接</a> 创建 Vue2+Vite 项目
+
+修改 vite.config.js
+
+```javascript
+import { defineConfig } from 'vite'
+import { createVuePlugin } from 'vite-plugin-vue2';
+
+export default defineConfig({
+    plugins: [createVuePlugin()],
+    build: {
+        lib: {
+            // 自定义组件库打包入口
+            entry: './src/index.js',
+            name: 'MyComponent',
+            // 输出的文件名格式，例如：在 dist 目录中输出 my-component-lib.umd.js 文件
+            fileName: (format) => `my-component-lib.${format}.js`,
+            formats: ['es', 'umd']
+        },
+        rollupOptions: {
+            // 确保外部化处理那些你不想打包进库的依赖
+            external: ['vue'],
+            output: {
+                // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+                globals: {
+                    vue: 'Vue'
+                }
+            }
+        }
+    }
+})
+
+```
+
+创建入口文件 src/index.js 内容如下：
+
+```javascript
+// 在自定义 Vue 组件库的项目中通常被用作插件的入口文件，主要作用是方便开发者将该组件库作为一个插件引入到 Vue 项目中，同时按需导出单个组件，供开发者选择使用。
+// 这部分代码导入了两个 Vue 组件 MyComponent1 和 MyComponent2，它们位于 src/components 目录下。
+import MyComponent1 from './components/MyComponent1.vue';
+import MyComponent2 from './components/MyComponent2.vue';
+
+// install 方法是 Vue 插件的约定方法，Vue.use() 会调用这个方法。
+// 在这里，install 方法接收 Vue 构造函数作为参数，并通过 Vue.component 全局注册两个组件 MyComponent1 和 MyComponent2。
+// 这样，当插件被安装后，这两个组件就可以在任何地方的模板中直接使用，比如 <MyComponent1 /> 和 <MyComponent2 />。
+const install = function (Vue) {
+    // 注册组件到 Vue 的名称，在调用时直接使用该名称作为标签
+    Vue.component('MyComponent1', MyComponent1)
+    Vue.component('MyComponent2', MyComponent2)
+};
+
+// 自动注册插件（针对 Vue 2.x 的浏览器环境）
+// 如果该库是通过 <script> 标签直接引入的（通常用于浏览器环境），window.Vue 会存在，表示全局的 Vue 构造函数。
+// 代码会自动检测到全局的 Vue 对象，并调用 install(window.Vue)，将组件自动注册到全局。
+// 这使得开发者无需手动调用 Vue.use()，即可直接使用组件。
+if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+}
+
+// 导出组件和插件方法
+// install 方法：使得该库可以作为 Vue 插件使用，通过 Vue.use() 来安装。
+// MyComponent1 和 MyComponent2：单独导出组件，支持按需引入。
+// 
+// 开发者可以按需引入某个组件，而不是必须引入整个插件。例如：
+//      import { MyComponent1 } from 'my-component-library';
+//      Vue.component('MyComponent1', MyComponent1);
+//
+export default {
+    install,
+    MyComponent1,
+    MyComponent2,
+};
+
+```
+
+修改 package.json
+
+```json
+{
+  "main": "dist/my-component-lib.umd.js"
+}
+
+```
+
+编译组件
+
+```bash
+npm run build
+```
+
+自身项目调试组件
+
+- 启用项目
+
+  ```bash
+  npm run dev
+  ```
+
+- 访问 `http://localhost:5174/` 即可。
+
+使用测试项目借助 npm link 引用组件
+
+>npm link 用法请参考本站 <a href="/nodejs/npm命令.html#npm-link" target="_blank">链接</a>
+
+- 链接自定义组件库到全局 node_modules 中
+
+  ```bash
+  cd demo-vue2-vite-my-component-lib
+  
+  # 会使用自定义组件库目录作为 import from 'demo-vue2-vite-my-component-lib'
+  npm link
+  ```
+
+- 引用自定义组件库
+
+  创建 Vue2 项目：参考本站 <a href="/vue/脚手架创建项目.html#创建-vue2" target="_blank">链接</a>
+
+  添加自定义组件库依赖
+
+  ```bash
+  npm link demo-vue2-vite-my-component-lib
+  ```
+
+  在 src/main.js 中注册组件库
+
+  ```javascript
+  import Vue from 'vue'
+  import App from './App.vue'
+  // 导入组件库
+  import MyComponentPlugin from 'demo-vue2-vite-my-component-lib'
+  // 单独引用组件
+  import { MyComponent1 } from 'demo-vue2-vite-my-component-lib'
+  
+  Vue.config.productionTip = false
+  // 注册组件库到 Vue 中，Vue.use 函数会自动调用组件库中的 install 函数
+  Vue.use(MyComponentPlugin)
+  // 通过 <my-component-1></my-component-1> 单独引用组件库
+  Vue.component('my-component-1', MyComponent1)
+  
+  new Vue({
+    render: h => h(App),
+  }).$mount('#app')
+  ```
+
+  在 src/App.vue 中引用组件库中的组件
+
+  ```vue
+  <template>
+    <div id="app">
+      <MyComponent1></MyComponent1>
+      <MyComponent2></MyComponent2>
+      <my-component-1></my-component-1>
+    </div>
+  </template>
+  
+  <script>
+  
+  export default {
+    name: 'App',
+  }
+  </script>
+  
+  <style>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
+  </style>
+  
+  ```
+
+参考 <a href="/nodejs/README.html#发布组件到-npm-registry" target="_blank">链接</a> 发布到 npm registry
+
+
+
+### 基于 Vue3
+
+>todo 暂时不研究
+
+
+
+## 黑暗或明亮主题切换
+
+>dark or light mode.
+>
+>详细用法请参考本站 [示例](https://gitee.com/dexterleslie/demonstration/tree/main/front-end/demo-vue/demo-vue2-dark-mode)
+
+示例中主要通过 src/components/ThemeToggle.vue 控件中 `document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light')` 代码为 `<html>` 标签添加 `data-theme=dark` 或 `data-theme=light` 属性，在 src/App.vue 中根据样式条件设置 css 变量值来达到切换主题效果，根据样式条件设置 css 变量值代码如下：
+
+```html
+<style>
+:root {
+  --bg-color: #ffffff;
+  --text-color: #2c3e50;
+  --hover-bg-color: rgba(0, 0, 0, 0.1);
+}
+
+/*  表示当 HTML 元素的 data-theme 属性值为 "dark" 时，应用以下样式规则 */
+[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #ffffff;
+  --hover-bg-color: rgba(255, 255, 255, 0.1);
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  margin: 0;
+  padding-top: 60px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>
+```
+
+
+
+## 模板语法
+
+>[官方参考链接](https://vuejs.org/guide/essentials/template-syntax.html)
+
+### 介绍
+
+Vue 使用基于 HTML 的模板语法，允许您以声明方式将渲染的 DOM 绑定到底层组件实例的数据。所有 Vue 模板都是语法有效的 HTML，可由符合规范的浏览器和 HTML 解析器进行解析。
+
+底层，Vue 将模板编译为高度优化的 JavaScript 代码。结合响应式系统，Vue 可以智能地找出需要重新渲染的最少组件数量，并在应用程序状态发生变化时应用最少的 DOM 操作。
+
+如果您熟悉虚拟 DOM 概念并且喜欢 JavaScript 的原始功能，您也可以直接编写渲染函数而不是模板，并使用可选的 JSX 支持。但请注意，它们不能像模板一样享受相同级别的编译时优化。
+
+
+
+### 使用 JavaScript 表达式
+
+到目前为止，我们只在模板中绑定了简单的属性键。但 Vue 实际上支持所有数据绑定中 JavaScript 表达式的全部功能：
+
+```vue
+{{ number + 1 }}
+
+{{ ok ? 'YES' : 'NO' }}
+
+{{ message.split('').reverse().join('') }}
+
+<div :id="`list-${id}`"></div>
+```
+
+这些表达式将在当前组件实例的数据范围内被评估为 JavaScript。
+
+在 Vue 模板中，JavaScript 表达式可以在以下位置使用：
+
+- 文本内部插值（mustaches）
+- 在任何 Vue 指令的属性值中（以 v- 开头的特殊属性）
+
+示例：
+
+```vue
+<el-tooltip class="item" :effect="darkMode?'light':'dark'" content="切换主题" placement="right">
+	...
+</el-tooltip>
+```
+
+示例中绑定属性 `:effect` 中使用三元运算符 `darkMode?'light':'dark'` JavaScript 表达式根据 `darkMode` 布尔值返回 `light` 或者 `dark`。

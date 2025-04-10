@@ -22,15 +22,13 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       {
-        text: '首页', link: '/'
-      }, {
         text: '前端', items: [
           { text: 'Vite', link: '/vite/README.md' },
           { text: 'Vue', link: '/vue/README.md' },
           { text: 'Nuxt', link: '/nuxt/README.md' },
           { text: 'Element-UI', link: '/element-ui/README.md' },
           { text: 'VitePress', link: '/cms/vitepress.md' },
-          { text: 'Html、Javascript、CSS', link: '/html-js-css/css.md' },
+          { text: 'Html、Javascript、CSS', link: '/html-js-css/README.md' },
           { text: 'Axios', link: '/axios/README.md' },
         ]
       }, {
@@ -43,9 +41,12 @@ export default defineConfig({
           { text: 'Java 相关库', link: '/java-library/lombok.md' },
           { text: 'JMeter', link: '/jmeter/README.md' },
           { text: 'MySQL、MariaDB', link: '/mysql-n-mariadb/README.md' },
+          { text: 'NodeJS', link: '/nodejs/README.md' },
+          { text: 'OpenResty', link: '/openresty/编译docker基础镜像.md' },
         ]
       }, {
         text: 'Linux', items: [
+          { text: 'Linux 相关', link: '/linux/README.md' },
           { text: 'Ubuntu/Debian', link: '/linux/ubuntu-n-debian.md' },
           { text: 'CentOS', link: '/linux/centos.md' },
           { text: '命令行工具', link: '/linux/命令行工具列表.md' },
@@ -82,7 +83,7 @@ export default defineConfig({
           { text: '亚马逊', link: '/aws/README.md' },
           { text: '阿里云', link: '/aliyun/阿里云帐号信息.md' },
           { text: '谷歌云', link: '/gcp/README.md' },
-          { text: 'CloudFlare', link: '/cloudflare/README.md' },
+          { text: 'Cloudflare', link: '/cloudflare/README.md' },
         ]
       }, {
         text: '其他', items: [
@@ -94,6 +95,7 @@ export default defineConfig({
           { text: 'Word 转换为 PDF', link: '/word-to-pdf/README.md' },
           { text: 'IDEA', link: '/idea/README.md' },
           { text: 'HTTP 相关', link: '/http/README.md' },
+          { text: '英语学习', link: '/english/README.md' },
         ]
       },
     ],
@@ -157,7 +159,10 @@ export default defineConfig({
         {
           text: 'Html、Javascript、CSS',
           items: [
+            { text: '基础', link: '/html-js-css/README.md' },
             { text: 'CSS', link: '/html-js-css/css.md' },
+            { text: '媒体查询', link: '/html-js-css/media-query.md' },
+            { text: 'JavaScript', link: '/html-js-css/javascript.md' },
           ]
         }
       ],
@@ -396,16 +401,6 @@ export default defineConfig({
           ]
         }
       ],
-      '/cloudflare/': [
-        {
-          text: 'CloudFlare',
-          items: [
-            { text: '基础', link: '/cloudflare/README.md' },
-            { text: 'Workers', link: '/cloudflare/workers.md' },
-            { text: '帐号信息', link: '/cloudflare/帐号信息.md' },
-          ]
-        }
-      ],
       '/idea/': [
         {
           text: 'IDEA',
@@ -448,6 +443,52 @@ export default defineConfig({
             { text: '基础', link: '/python/README.md' },
             { text: 'Xpath', link: '/python/xpath使用.md' },
             { text: 'CentOS6 升级 Python2.6 到 Python2.7', link: '/python/centOS6升级python2.6到python2.7.md' },
+          ]
+        }
+      ],
+      '/nodejs/': [
+        {
+          text: 'NodeJS',
+          items: [
+            { text: '基础', link: '/nodejs/README.md' },
+            { text: 'Npm', link: '/nodejs/npm命令.md' },
+          ]
+        }
+      ],
+      '/openresty/': [
+        {
+          text: 'OpenResty',
+          items: [
+            { text: '基础', link: '/openresty/README.md' },
+            { text: 'Https 设置', link: '/openresty/https设置.md' },
+            { text: 'lua-resty-limit-traffic 库使用', link: '/openresty/lua-resty-limit-traffic库使用.md' },
+            { text: 'Lua 脚本', link: '/openresty/lua脚本.md' },
+            { text: 'x-forwarded-for 用法', link: '/openresty/x-forwarded-for用法.md' },
+            { text: '横向扩展', link: '/openresty/横向扩展.md' },
+            { text: '监控', link: '/openresty/监控.md' },
+            { text: '编译容器基础镜像', link: '/openresty/编译docker基础镜像.md' },
+            { text: '通过环境变量传递参数', link: '/openresty/通过环境变量传递参数.md' },
+          ]
+        }
+      ],
+      '/english/': [
+        {
+          text: '英语学习',
+          items: [
+            { text: '基础', link: '/english/README.md' },
+            { text: 'TODO 列表', link: '/english/todo列表.md' },
+            { text: '主谓一致', link: '/english/主谓一致.md' },
+            { text: '什么是语法', link: '/english/什么是语法.md' },
+            { text: '句型', link: '/english/句型.md' },
+            { text: '句子成分', link: '/english/句子成分.md' },
+            { text: '复合句或从句', link: '/english/复合句或从句.md' },
+            { text: '强调句', link: '/english/强调句.md' },
+            { text: '时态', link: '/english/时态.md' },
+            { text: '短语', link: '/english/短语.md' },
+            { text: '词性或词类', link: '/english/词性或词类.md' },
+            { text: '语态', link: '/english/语态.md' },
+            { text: '语气', link: '/english/语气.md' },
+            { text: '音标', link: '/english/音标.md' },
           ]
         }
       ],
