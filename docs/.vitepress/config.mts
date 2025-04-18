@@ -23,6 +23,7 @@ export default defineConfig({
     nav: [
       {
         text: '前端', items: [
+          { text: 'UI、UX、平面设计', link: '/front-end/README.md' },
           { text: 'Vite', link: '/vite/README.md' },
           { text: 'Vue', link: '/vue/README.md' },
           { text: 'Nuxt', link: '/nuxt/README.md' },
@@ -30,6 +31,10 @@ export default defineConfig({
           { text: 'VitePress', link: '/cms/vitepress.md' },
           { text: 'Html、Javascript、CSS', link: '/html-js-css/README.md' },
           { text: 'Axios', link: '/axios/README.md' },
+          { text: 'Electron', link: '/electron/README.md' },
+          { text: '多媒体技术', link: '/多媒体技术/README.md' },
+          { text: 'Adobe', link: '/adobe/README.md' },
+          { text: 'Figma', link: '/figma/README.md' },
         ]
       }, {
         text: '后端', items: [
@@ -43,6 +48,7 @@ export default defineConfig({
           { text: 'MySQL、MariaDB', link: '/mysql-n-mariadb/README.md' },
           { text: 'NodeJS', link: '/nodejs/README.md' },
           { text: 'OpenResty', link: '/openresty/编译docker基础镜像.md' },
+          { text: 'Maven', link: '/maven/README.md' },
         ]
       }, {
         text: 'Linux', items: [
@@ -96,6 +102,7 @@ export default defineConfig({
           { text: 'IDEA', link: '/idea/README.md' },
           { text: 'HTTP 相关', link: '/http/README.md' },
           { text: '英语学习', link: '/english/README.md' },
+          { text: 'Windows 系统', link: '/windows/README.md' },
         ]
       },
     ],
@@ -148,7 +155,7 @@ export default defineConfig({
             { text: '数据类型和命令', link: '/redis/数据类型和命令.md' },
             { text: '客户端', link: '/redis/客户端.md' },
             { text: '事务', link: '/redis/事务.md' },
-            { text: 'Lua脚本', link: '/redis/Lua脚本.md' },
+            { text: '脚本编程', link: '/redis/脚本编程.md' },
             { text: '应用场景', link: '/redis/应用场景.md' },
             { text: '最佳实践', link: '/redis/最佳实践.md' },
             { text: '基准测试', link: '/redis/基准测试.md' },
@@ -489,6 +496,25 @@ export default defineConfig({
             { text: '语态', link: '/english/语态.md' },
             { text: '语气', link: '/english/语气.md' },
             { text: '音标', link: '/english/音标.md' },
+            { text: '实践阅读', link: '/english/实践阅读.md' },
+          ]
+        }
+      ],
+      '/maven/': [
+        {
+          text: 'Maven',
+          items: [
+            { text: '基础', link: '/maven/README.md' },
+            { text: 'DependencyManagement', link: '/maven/dependencymanagement用法.md' },
+            { text: 'Maven Wrapper', link: '/maven/maven-wrapper用法.md' },
+            { text: '仓库', link: '/maven/maven仓库.md' },
+            { text: '发布可执行 Jar', link: '/maven/maven发布带main函数可执行jar.md' },
+            { text: '插件', link: '/maven/maven插件.md' },
+            { text: 'Optional 用法', link: '/maven/maven的optional用法.md' },
+            { text: 'Scope 用法', link: '/maven/maven的scope用法.md' },
+            { text: 'mvn 命令', link: '/maven/mvn命令.md' },
+            { text: '多模块配置', link: '/maven/多模块配置.md' },
+            { text: '指定 JDK 版本', link: '/maven/指定jdk版本.md' },
           ]
         }
       ],
