@@ -46,9 +46,12 @@ export default defineConfig({
           { text: 'Java 相关库', link: '/java-library/lombok.md' },
           { text: 'JMeter', link: '/jmeter/README.md' },
           { text: 'MySQL、MariaDB', link: '/mysql-n-mariadb/README.md' },
+          { text: 'TiDB', link: '/tidb/README.md' },
           { text: 'NodeJS', link: '/nodejs/README.md' },
           { text: 'OpenResty', link: '/openresty/编译docker基础镜像.md' },
           { text: 'Maven', link: '/maven/README.md' },
+          { text: 'Zookeeper', link: '/zookeeper/README.md' },
+          { text: 'ElasticSearch', link: '/elasticsearch/README.md' },
         ]
       }, {
         text: 'Linux', items: [
@@ -517,6 +520,26 @@ export default defineConfig({
             { text: 'mvn 命令', link: '/maven/mvn命令.md' },
             { text: '多模块配置', link: '/maven/多模块配置.md' },
             { text: '指定 JDK 版本', link: '/maven/指定jdk版本.md' },
+          ]
+        }
+      ],
+      '/zookeeper/': [
+        {
+          text: 'Zookeeper',
+          items: [
+            { text: '基础', link: '/zookeeper/README.md' },
+            { text: 'Curator Framework', link: '/zookeeper/curator-framework.md' },
+          ]
+        }
+      ],
+      '/elasticsearch/': [
+        {
+          text: 'ElasticSearch',
+          items: [
+            { text: '基础', link: '/elasticsearch/README.md' },
+            { text: 'Curator', link: '/elasticsearch/curator.md' },
+            { text: 'Postman 操作', link: '/elasticsearch/postman操作elasticsearch.md' },
+            { text: '常见错误', link: '/elasticsearch/常见错误.md' },
           ]
         }
       ],

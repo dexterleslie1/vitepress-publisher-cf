@@ -490,26 +490,40 @@ cat /proc/sys/fs/file-max
 
 #### 设置
 
-编辑 /etc/security/limits.conf 添加如下配置：
+修改 nofile 配置：
 
-```
-* soft nofile 65535
-* hard nofile 65535
+```bash
+sudo grep -q "^\* soft nofile" /etc/security/limits.conf && sudo sed -i '/^\* soft nofile/c \* soft nofile 65535' /etc/security/limits.conf || sudo sed -i '/^# End of file/i \* soft nofile 65535' /etc/security/limits.conf
+sudo grep -q "^\* hard nofile" /etc/security/limits.conf && sudo sed -i '/^\* hard nofile/c \* hard nofile 65535' /etc/security/limits.conf || sudo sed -i '/^# End of file/i \* hard nofile 65535' /etc/security/limits.conf
 ```
 
-设置 file-max：编辑 /etc/sysctl.conf 添加如下配置：
+修改 file-max 配置：
 
-```
-fs.file-max=10000000
+```bash
+sudo grep -q "^fs.file-max=" /etc/sysctl.conf && sudo sed -i '/^fs.file-max=/c fs.file-max=10000000' /etc/sysctl.conf || sudo sed -i '$a\fs.file-max=10000000' /etc/sysctl.conf
 ```
 
 重启系统后，查看配置是否生效
 
 ```bash
-# 查看 nofile
-ulimit -n
-
-# 查看 file-max
-cat /proc/sys/fs/file-max
+# 查看 nofile 和 file-max
+ulimit -n && cat /proc/sys/fs/file-max
 ```
 
+
+
+## SSH 服务
+
+
+
+### 在一段时间内没有活动会自动断开
+
+>[参考链接](https://developer.aliyun.com/article/1448310)
+
+- 使用 SSH 连接到服务器。
+- 打开 SSH 配置文件（通常为 /etc/ssh/sshd_config）。
+- 寻找 ClientAliveInterval 和 ClientAliveCountMax 这两个选项。
+- ClientAliveInterval 指定了服务器向客户端发送保持活动消息的时间间隔，单位是秒。将其设置为一个较大的值（比如 600 表示 10 分钟）。
+- ClientAliveCountMax 指定了服务器在未收到客户端响应后断开连接之前发送保持活动消息的次数。将其设置为一个适当的值，以确保连接不会过于频繁地断开（比如 3）。
+- 保存并关闭文件。
+- 重启操作系统，使更改生效。

@@ -924,6 +924,190 @@ MyBatis batch 模式插入数据 - 耗时 162665 毫秒
 
 
 
+#### 批量插入获取自増 id
+
+MyBatis Spring 依赖设置如下版本
+
+```xml
+<!-- mybatis依赖 -->
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>3.0.4</version>
+</dependency>
+```
+
+不能使用 mariadb jdbc 驱动，只能使用 mysql jdbc 驱动，否则只返回第一条记录的自増 id，其他记录为 null
+
+```xml
+<!-- mariadb驱动依赖 -->
+<!--<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+    &lt;!&ndash; 指定mariadb版本 &ndash;&gt;
+    &lt;!&ndash;<version>3.4.0</version>&ndash;&gt;
+    <scope>runtime</scope>
+</dependency>-->
+<!-- MySQL驱动才支持insert values (...),(...)批量插入返回自増id，mariadb驱动只返回第一条记录的自増id -->
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+</dependency>
+```
+
+批量插入的 xml 配置
+
+```xml
+<insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+    insert into employee(emp_name, age, emp_salary)
+    values
+    <foreach item="e" collection="employees" separator=",">
+        (#{e.empName}, #{e.age}, #{e.empSalary})
+    </foreach>
+</insert>
+```
+
+测试
+
+```java
+this.employeeMapper.insertBatch(employees);
+employees.forEach(o -> Assertions.assertTrue(o.getId() > 0));
+```
+
+
+
+### 多数据源配置
+
+>详细用法请参考本站 [示例](https://gitee.com/dexterleslie/demonstration/tree/main/demo-spring-boot/demo-spring-boot-mybatis-multiple-datasources)
+
+application.properties 分别配置数据源
+
+```properties
+# 数据源1配置
+spring.datasource.db1.jdbc-url=jdbc:mysql://localhost:3306/demo?allowMultiQueries=true
+spring.datasource.db1.username=root
+spring.datasource.db1.password=123456
+spring.datasource.db1.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# 数据源2配置
+spring.datasource.db2.jdbc-url=jdbc:mysql://localhost:3307/demo?allowMultiQueries=true
+spring.datasource.db2.username=root
+spring.datasource.db2.password=123456
+spring.datasource.db2.driver-class-name=com.mysql.cj.jdbc.Driver
+```
+
+数据源1 Java 配置
+
+```java
+@Configuration
+@MapperScan(
+        // 配置Java mapper所在包
+        basePackages = "com.future.demo.mapper",
+        sqlSessionFactoryRef = "db1SqlSessionFactory",
+        sqlSessionTemplateRef = "db1SqlSessionTemplate")
+public class Datasource1Config {
+
+    @Bean(name = "db1DataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.db1")
+    @Primary
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean(name = "db1SqlSessionFactory")
+    @Primary
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("db1DataSource") DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(dataSource);
+
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        bean.setConfiguration(configuration);
+
+        // pagehelper分页插件配置
+        PageInterceptor interceptor = new PageInterceptor();
+        Properties properties = new Properties();
+        // 启用合理化，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页
+        properties.setProperty("reasonable", "true");
+        interceptor.setProperties(properties);
+        bean.setPlugins(interceptor);
+
+        // 配置mapper位置
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/db1/*Mapper.xml"));
+        return bean.getObject();
+    }
+
+    @Bean(name = "db1SqlSessionTemplate")
+    @Primary
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("db1SqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+
+}
+```
+
+数据源2 Java 配置
+
+```java
+@Configuration
+@MapperScan(
+        // 配置Java mapper所在包
+        basePackages = "com.future.demo.mapper2",
+        sqlSessionFactoryRef = "db2SqlSessionFactory",
+        sqlSessionTemplateRef = "db2SqlSessionTemplate")
+public class Datasource2Config {
+
+    @Bean(name = "db2DataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.db2")
+    @Primary
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean(name = "db2SqlSessionFactory")
+    @Primary
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("db2DataSource") DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(dataSource);
+
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        bean.setConfiguration(configuration);
+
+        // pagehelper分页插件配置
+        PageInterceptor interceptor = new PageInterceptor();
+        Properties properties = new Properties();
+        // 启用合理化，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页
+        properties.setProperty("reasonable", "true");
+        interceptor.setProperties(properties);
+        bean.setPlugins(interceptor);
+
+        // 配置mapper位置
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/db2/*Mapper.xml"));
+        return bean.getObject();
+    }
+
+    @Bean(name = "db2SqlSessionTemplate")
+    @Primary
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("db2SqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+
+}
+```
+
+分别引用数据源1和2的 Mapper
+
+```java
+@Autowired
+EmployeeMapper employeeMapper;
+
+@Autowired
+EmployeeMapper2 employeeMapper2;
+```
+
+
+
 ## `MyBatis-plus`
 
 ### `spring-boot`项目集成`MyBatis-plus`
