@@ -22,93 +22,128 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       {
-        text: '前端', items: [
-          { text: 'UI、UX、平面设计', link: '/front-end/README.md' },
-          { text: 'Vite', link: '/vite/README.md' },
-          { text: 'Vue', link: '/vue/README.md' },
-          { text: 'Nuxt', link: '/nuxt/README.md' },
-          { text: 'Element-UI', link: '/element-ui/README.md' },
-          { text: 'VitePress', link: '/cms/vitepress.md' },
-          { text: 'Html、Javascript、CSS', link: '/html-js-css/README.md' },
-          { text: 'Axios', link: '/axios/README.md' },
-          { text: 'Electron', link: '/electron/README.md' },
-          { text: '多媒体技术', link: '/多媒体技术/README.md' },
-          { text: 'Adobe', link: '/adobe/README.md' },
-          { text: 'Figma', link: '/figma/README.md' },
-        ]
-      }, {
-        text: '后端', items: [
-          { text: 'SpringBoot', link: '/springboot/快速创建spring-boot项目.md' },
-          { text: 'SpringCloud', link: '/springcloud/README.md' },
-          { text: 'Redis', link: '/redis/各种模式.md' },
-          { text: 'Docker、Compose', link: '/docker/README.md' },
-          { text: 'Java', link: '/java/README.md' },
-          { text: 'Java 相关库', link: '/java-library/lombok.md' },
-          { text: 'JMeter', link: '/jmeter/README.md' },
-          { text: 'MySQL、MariaDB', link: '/mysql-n-mariadb/README.md' },
-          { text: 'TiDB', link: '/tidb/README.md' },
-          { text: 'NodeJS', link: '/nodejs/README.md' },
-          { text: 'OpenResty', link: '/openresty/编译docker基础镜像.md' },
-          { text: 'Maven', link: '/maven/README.md' },
-          { text: 'Zookeeper', link: '/zookeeper/README.md' },
-          { text: 'ElasticSearch', link: '/elasticsearch/README.md' },
-        ]
-      }, {
-        text: 'Linux', items: [
-          { text: 'Linux 相关', link: '/linux/README.md' },
-          { text: 'Ubuntu/Debian', link: '/linux/ubuntu-n-debian.md' },
-          { text: 'CentOS', link: '/linux/centos.md' },
-          { text: '命令行工具', link: '/linux/命令行工具列表.md' },
-          { text: 'DNS', link: '/linux/dns.md' },
-          { text: 'LVM 逻辑卷', link: '/linux/lvm逻辑卷管理.md' },
-          { text: 'systemd、systemctl 服务', link: '/linux/systemd、systemctl服务.md' },
-          { text: '搭建 NFS 服务器', link: '/linux/搭建nfs服务器.md' },
-          { text: '操作系统页面缓存、目录项缓存、索引节点缓存', link: '/linux/操作系统页面缓存、目录项缓存、索引节点缓存.md' },
-          { text: 'SSH 客户端', link: '/linux/ssh客户端.md' },
-          { text: 'Shell 编程', link: '/shell-scripting/shell的概念.md' },
-        ]
-      }, {
-        text: '网络安全', items: [
-          { text: '密码算法', link: '/密码算法/README.md' },
-          { text: 'ssl、tls、https', link: '/ssl-tls-https/概念.md' },
-        ]
-      }, {
-        text: '测试和性能', items: [
-          { text: '基准测试', link: '/benchmark/README.md' },
-          { text: 'SpringBoot 项目的测试', link: '/springboot/spring-boot项目的测试.md' },
-          { text: 'Java 相关测试框架', link: '/java-library/测试.md' },
-        ]
-      }, {
-        text: '运维', items: [
-          { text: 'Ansible', link: '/ansible/README.md' },
-        ]
-      }, {
-        text: '编程语言', items: [
-          { text: 'Go', link: '/golang/README.md' },
-          { text: 'Python', link: '/python/README.md' },
-        ]
-      }, {
-        text: '云提供商', items: [
-          { text: '亚马逊', link: '/aws/README.md' },
-          { text: '阿里云', link: '/aliyun/阿里云帐号信息.md' },
-          { text: '谷歌云', link: '/gcp/README.md' },
-          { text: 'Cloudflare', link: '/cloudflare/README.md' },
-        ]
-      }, {
-        text: '其他', items: [
-          { text: '软件工程', link: '/软件工程/SDLC.md' },
-          { text: 'Git', link: '/git/README.md' },
-          { text: 'Dcli', link: '/dcli/README.md' },
-          { text: '科学上网', link: '/科学上网/README.md' },
-          { text: 'frp 内网穿透', link: '/frp/README.md' },
-          { text: 'Word 转换为 PDF', link: '/word-to-pdf/README.md' },
-          { text: 'IDEA', link: '/idea/README.md' },
-          { text: 'HTTP 相关', link: '/http/README.md' },
-          { text: '英语学习', link: '/english/README.md' },
-          { text: 'Windows 系统', link: '/windows/README.md' },
-          { text: '腾讯', link: '/tencent/README.md' },
+        text: 'IntelliJ破解', items: [
+          { text: 'IDEA 2023.2.5 Ultimate破解', link: '/intellij/IDEA-2023.2.5-Ultimate-Windows11破解.md' },
         ]
       },
+      // {
+      //   text: '前端', items: [
+      //     { text: 'UI、UX、平面设计', link: '/front-end/README.md' },
+      //     { text: 'Vite', link: '/vite/README.md' },
+      //     { text: 'Vue', link: '/vue/README.md' },
+      //     { text: 'Nuxt', link: '/nuxt/README.md' },
+      //     { text: 'Element-UI', link: '/element-ui/README.md' },
+      //     { text: 'VitePress', link: '/cms/vitepress.md' },
+      //     { text: 'Html、Javascript、CSS', link: '/html-js-css/README.md' },
+      //     { text: 'Axios', link: '/axios/README.md' },
+      //     { text: 'Electron', link: '/electron/README.md' },
+      //     { text: '多媒体技术', link: '/多媒体技术/README.md' },
+      //     { text: 'Adobe', link: '/adobe/README.md' },
+      //     { text: 'Figma', link: '/figma/README.md' },
+      //     { text: 'Android', link: '/android/README.md' },
+      //     { text: 'uni-app', link: '/uni-app/README.md' },
+      //     { text: 'SVG', link: '/svg/README.md' },
+      //     { text: 'React', link: '/react/README.md' },
+      //     { text: 'Qt', link: '/qt/README.md' },
+      //   ]
+      // }, {
+      //   text: '后端', items: [
+      //     { text: 'SpringBoot', link: '/springboot/快速创建spring-boot项目.md' },
+      //     { text: 'SpringCloud', link: '/springcloud/README.md' },
+      //     { text: 'Redis', link: '/redis/各种模式.md' },
+      //     { text: 'Docker、Compose', link: '/docker/README.md' },
+      //     { text: 'Java', link: '/java/README.md' },
+      //     { text: 'Java 相关库', link: '/java-library/lombok.md' },
+      //     { text: 'JMeter', link: '/jmeter/README.md' },
+      //     { text: 'MySQL、MariaDB', link: '/mysql-n-mariadb/README.md' },
+      //     { text: 'TiDB', link: '/tidb/README.md' },
+      //     { text: 'NodeJS', link: '/nodejs/README.md' },
+      //     { text: 'OpenResty', link: '/openresty/编译docker基础镜像.md' },
+      //     { text: 'Maven', link: '/maven/README.md' },
+      //     { text: 'Zookeeper', link: '/zookeeper/README.md' },
+      //     { text: 'ElasticSearch', link: '/elasticsearch/README.md' },
+      //     { text: 'Cassandra', link: '/cassandra/README.md' },
+      //     { text: 'ScyllaDB', link: '/scylladb/README.md' },
+      //     { text: 'RabbitMQ', link: '/rabbitmqt/README.md' },
+      //     { text: 'RocketMQ', link: '/rocketmq/README.md' },
+      //     { text: 'Skywalking', link: '/skywalking/README.md' },
+      //     { text: 'Debezium', link: '/debezium/README.md' },
+      //     { text: 'Kafka', link: '/kafka/README.md' },
+      //     { text: '场景案例', link: '/场景案例/README.md' },
+      //     { text: 'Dubbo', link: '/dubbo/README.md' },
+      //   ]
+      // }, {
+      //   text: 'Linux', items: [
+      //     { text: 'Linux 相关', link: '/linux/README.md' },
+      //     { text: 'Ubuntu/Debian', link: '/linux/ubuntu-n-debian.md' },
+      //     { text: 'CentOS', link: '/linux/centos.md' },
+      //     { text: '命令行工具', link: '/linux/命令行工具列表.md' },
+      //     { text: 'DNS', link: '/linux/dns.md' },
+      //     { text: 'LVM 逻辑卷', link: '/linux/lvm逻辑卷管理.md' },
+      //     { text: 'systemd、systemctl 服务', link: '/linux/systemd、systemctl服务.md' },
+      //     { text: '搭建 NFS 服务器', link: '/linux/搭建nfs服务器.md' },
+      //     { text: '操作系统页面缓存、目录项缓存、索引节点缓存', link: '/linux/操作系统页面缓存、目录项缓存、索引节点缓存.md' },
+      //     { text: 'SSH 客户端', link: '/linux/ssh客户端.md' },
+      //     { text: 'Shell 编程', link: '/shell-scripting/shell的概念.md' },
+      //   ]
+      // }, {
+      //   text: '网络安全', items: [
+      //     { text: '密码算法', link: '/密码算法/README.md' },
+      //     { text: 'ssl、tls、https', link: '/ssl-tls-https/概念.md' },
+      //   ]
+      // }, {
+      //   text: '测试和性能', items: [
+      //     { text: '基准测试', link: '/benchmark/README.md' },
+      //     { text: 'SpringBoot 项目的测试', link: '/springboot/spring-boot项目的测试.md' },
+      //     { text: 'Java 相关测试框架', link: '/java-library/测试.md' },
+      //   ]
+      // }, {
+      //   text: '运维', items: [
+      //     { text: 'Ansible', link: '/ansible/README.md' },
+      //     { text: 'Prometheus', link: '/prometheus/README.md' },
+      //   ]
+      // }, {
+      //   text: '编程语言', items: [
+      //     { text: 'Go', link: '/golang/README.md' },
+      //     { text: 'Python', link: '/python/README.md' },
+      //     { text: 'C/C++', link: '/c-plus/README.md' },
+      //   ]
+      // }, {
+      //   text: '云提供商', items: [
+      //     { text: '亚马逊', link: '/aws/README.md' },
+      //     { text: '阿里云', link: '/aliyun/阿里云帐号信息.md' },
+      //     { text: '谷歌云', link: '/gcp/README.md' },
+      //     { text: 'Cloudflare', link: '/cloudflare/README.md' },
+      //   ]
+      // }, {
+      //   text: '其他', items: [
+      //     { text: '软件工程', link: '/软件工程/SDLC.md' },
+      //     { text: 'Git', link: '/git/README.md' },
+      //     { text: 'Dcli', link: '/dcli/README.md' },
+      //     { text: '科学上网', link: '/科学上网/README.md' },
+      //     { text: 'frp 内网穿透', link: '/frp/README.md' },
+      //     { text: 'Gost', link: '/gost/README.md' },
+      //     { text: 'Word 转换为 PDF', link: '/word-to-pdf/README.md' },
+      //     { text: 'IDEA', link: '/idea/README.md' },
+      //     { text: 'HTTP 相关', link: '/http/README.md' },
+      //     { text: '英语学习', link: '/english/README.md' },
+      //     { text: 'Windows 系统', link: '/windows/README.md' },
+      //     { text: '腾讯', link: '/tencent/README.md' },
+      //     { text: '小孩成长计划', link: '/小孩/README.md' },
+      //     { text: '工具集', link: '/toolset/README.md' },
+      //     { text: 'Future', link: '/future/README.md' },
+      //     { text: 'MacOS', link: '/macos/README.md' },
+      //     { text: 'Typora', link: '/typora/README.md' },
+      //     { text: '数据结构和算法', link: '/数据结构和算法/README.md' },
+      //     { text: 'VSCode', link: '/vscode/README.md' },
+      //     { text: 'Firefox', link: '/firefox/README.md' },
+      //     { text: '谷歌浏览器（Chrome）', link: '/chrome/README.md' },
+      //     { text: '验证码', link: '/captcha/README.md' },
+      //     { text: 'ffmpeg', link: '/ffmpeg/README.md' },
+      //     { text: 'KVM', link: '/kvm/README.md' },
+      //     { text: 'AI', link: '/ai/README.md' },
+      //   ]
+      // },
     ],
 
     sidebar: {
@@ -116,6 +151,7 @@ export default defineConfig({
         {
           text: 'SpringBoot',
           items: [
+            { text: '基础', link: '/springboot/README.md' },
             { text: '快速创建SpringBoot项目', link: '/springboot/快速创建spring-boot项目.md' },
             { text: 'SpringBoot项目的测试', link: '/springboot/spring-boot项目的测试.md' },
             { text: 'Spring Security', link: '/springboot/spring-security.md' },
@@ -136,6 +172,7 @@ export default defineConfig({
             { text: 'ibatis、mybatis、mybatis-plus', link: '/springboot/ibatis、mybatis、mybatis-plus.md' },
             { text: 'SpringBoot', link: '/springboot/spring-boot.md' },
             { text: 'SpringBoot Thymeleaf', link: '/springboot/spring-boot-thymeleaf.md' },
+            { text: '连接池', link: '/springboot/连接池.md' },
           ]
         }
       ],
@@ -146,6 +183,10 @@ export default defineConfig({
             { text: 'SpringCloud的基础', link: '/springcloud/README.md' },
             { text: 'Assistant示例', link: '/springcloud/assistant示例.md' },
             { text: '分布式ID', link: '/springcloud/分布式ID.md' },
+            { text: '分布式事务', link: '/springcloud/分布式事务.md' },
+            { text: '服务网关', link: '/springcloud/服务网关.md' },
+            { text: '服务熔断、降级、限流', link: '/springcloud/服务熔断、降级、限流.md' },
+            { text: '服务调用和负载均衡', link: '/springcloud/服务调用和负载均衡.md' },
           ]
         }
       ],
@@ -183,7 +224,6 @@ export default defineConfig({
           items: [
             { text: '基础', link: '/vue/README.md' },
             { text: '脚手架创建项目', link: '/vue/脚手架创建项目.md' },
-            { text: '指令', link: '/vue/指令.md' },
             { text: '集成 Element-UI', link: '/vue/集成element-ui.md' },
           ]
         }
@@ -195,7 +235,6 @@ export default defineConfig({
             { text: 'Nuxt基础', link: '/nuxt/README.md' },
             { text: '路由', link: '/nuxt/路由.md' },
             { text: '集成 Element-UI', link: '/nuxt/集成element-ui.md' },
-            { text: '数据交互和跨域', link: '/nuxt/数据交互和跨域.md' },
           ]
         }
       ],
@@ -286,6 +325,7 @@ export default defineConfig({
             { text: '原理', link: '/git/原理.md' },
             { text: '变基', link: '/git/变基.md' },
             { text: '命令', link: '/git/命令.md' },
+            { text: 'Pull Request', link: '/git/pr.md' },
           ]
         }
       ],
@@ -311,6 +351,7 @@ export default defineConfig({
           text: '基准测试',
           items: [
             { text: '基础', link: '/benchmark/README.md' },
+            { text: 'Gatling', link: '/benchmark/gatling.md' },
             { text: 'CPU 测试', link: '/benchmark/CPU测试.md' },
             { text: 'IO 测试', link: '/benchmark/IO测试.md' },
             { text: '内存测试', link: '/benchmark/内存测试.md' },
@@ -351,6 +392,8 @@ export default defineConfig({
             { text: '存储服务', link: '/aliyun/阿里云存储服务.md' },
             { text: '网络', link: '/aliyun/阿里云网络.md' },
             { text: '容器服务', link: '/aliyun/阿里云容器服务.md' },
+            { text: 'ECS', link: '/aliyun/云服务器.md' },
+            { text: 'ROS', link: '/aliyun/ROS.md' },
           ]
         }
       ],
@@ -409,6 +452,7 @@ export default defineConfig({
             { text: '计算数据和索引大小', link: '/mysql-n-mariadb/计算数据和索引大小.md' },
             { text: '运行 MySQL 和 MariaDB', link: '/mysql-n-mariadb/运行mysql和mariadb.md' },
             { text: '配置参数', link: '/mysql-n-mariadb/配置参数.md' },
+            { text: '主从配置', link: '/mysql-n-mariadb/主从配置.md' },
           ]
         }
       ],
@@ -417,8 +461,6 @@ export default defineConfig({
           text: 'IDEA',
           items: [
             { text: '基础', link: '/idea/README.md' },
-            { text: '全家桶破解', link: '/idea/intellij全家桶破解.md' },
-            { text: 'AI 插件', link: '/idea/AI插件.md' },
             { text: '创建并管理项目', link: '/idea/创建并管理项目.md' },
             { text: '多重光标同时编辑', link: '/idea/多重光标同时编辑.md' },
             { text: '快捷键', link: '/idea/快捷键.md' },
@@ -540,6 +582,95 @@ export default defineConfig({
             { text: 'Curator', link: '/elasticsearch/curator.md' },
             { text: 'Postman 操作', link: '/elasticsearch/postman操作elasticsearch.md' },
             { text: '常见错误', link: '/elasticsearch/常见错误.md' },
+          ]
+        }
+      ],
+      '/prometheus/': [
+        {
+          text: 'Prometheus',
+          items: [
+            { text: '基础', link: '/prometheus/README.md' },
+            { text: 'Exporter', link: '/prometheus/exporter使用.md' },
+            { text: 'Prometheus拉取目标配置', link: '/prometheus/prometheus拉取目标配置.md' },
+            { text: 'Prometheus指标类型', link: '/prometheus/prometheus指标类型.md' },
+            { text: 'Prometheus标签', link: '/prometheus/prometheus标签.md' },
+            { text: 'Prometheus监控Spring Boot', link: '/prometheus/prometheus监控spring.md' },
+            { text: 'Prometheus自定义Exporter', link: '/prometheus/prometheus自定义exporter.md' },
+            { text: 'PromQL', link: '/prometheus/promql.md' },
+            { text: '使用Docker Compose运行Prometheus', link: '/prometheus/使用docker-compose运行prometheus.md' },
+            { text: '告警设置', link: '/prometheus/告警设置.md' },
+            { text: 'Grafana', link: '/prometheus/grafana.md' },
+          ]
+        }
+      ],
+      '/skywalking/': [
+        {
+          text: 'Skywalking',
+          items: [
+            { text: '基础', link: '/skywalking/README.md' },
+            { text: 'Agent设置', link: '/skywalking/agent设置.md' },
+            { text: 'Skywalking UI', link: '/skywalking/skywalking-ui.md' },
+            { text: '运行Demo', link: '/skywalking/运行demo.md' },
+          ]
+        }
+      ],
+      '/react/': [
+        {
+          text: 'React',
+          items: [
+            { text: '基础', link: '/react/README.md' },
+            { text: 'Redux', link: '/react/redux.md' },
+          ]
+        }
+      ],
+      '/macos/': [
+        {
+          text: 'MacOS',
+          items: [
+            { text: '基础', link: '/macos/README.md' },
+            { text: 'Cocoapods', link: '/macos/cocoapods.md' },
+            { text: 'HomeBrew', link: '/macos/homebrew.md' },
+            { text: 'Objective-C', link: '/macos/objective-c.md' },
+            { text: 'Swift', link: '/macos/swift.md' },
+            { text: 'Xcode', link: '/macos/xcode.md' },
+          ]
+        }
+      ],
+      '/数据结构和算法/': [
+        {
+          text: '数据结构和算法',
+          items: [
+            { text: '基础', link: '/数据结构和算法/README.md' },
+            { text: '布隆过滤器', link: '/数据结构和算法/布隆过滤器.md' },
+          ]
+        }
+      ],
+      '/c-plus/': [
+        {
+          text: 'C/C++',
+          items: [
+            { text: '基础', link: '/c-plus/README.md' },
+            { text: 'GDB', link: '/c-plus/gdb.md' },
+          ]
+        }
+      ],
+      '/uni-app/': [
+        {
+          text: 'uni-app',
+          items: [
+            { text: '基础', link: '/uni-app/README.md' },
+            { text: '组件库', link: '/uni-app/组件库.md' },
+            { text: 'Html5 Plus', link: '/uni-app/html5plus.md' },
+            { text: '打包发布', link: '/uni-app/打包发布.md' },
+          ]
+        }
+      ],
+      '/android/': [
+        {
+          text: '安卓',
+          items: [
+            { text: '基础', link: '/android/README.md' },
+            { text: '模拟器', link: '/android/模拟器.md' },
           ]
         }
       ],
